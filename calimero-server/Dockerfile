@@ -4,17 +4,17 @@ FROM $BUILD_FROM as build
 ENV LANG C.UTF-8
 
 # https://stackoverflow.com/a/57145029 --> explicitly add jmods
-#RUN apk update \
- #  && apk add --no-cache openjdk17-jdk openjdk17-jmods wget unzip zip build-base linux-headers lockdev cmake libusb-dev eudev-dev
+RUN apk update \
+   && apk add --no-cache openjdk17-jdk openjdk17-jmods wget unzip zip build-base linux-headers lockdev cmake libusb-dev eudev-dev
 
-#RUN /usr/lib/jvm/java-17-openjdk/bin/jlink \
-#    --verbose \
-#    --add-modules java.base,java.xml \
-#    --compress 2 \
-#    --strip-debug \
-#    --no-header-files \
-#    --no-man-pages \
-#    --output /opt/jdk
+RUN /usr/lib/jvm/java-17-openjdk/bin/jlink \
+    --verbose \
+    --add-modules java.base,java.xml \
+    --compress 2 \
+    --strip-debug \
+    --no-header-files \
+    --no-man-pages \
+    --output /opt/jdk
 
 # download jars and recompile serial and usb library for Alpine musl
 RUN mkdir -p /opt/calimero/
